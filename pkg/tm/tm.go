@@ -30,8 +30,12 @@ func InitTaskManager() *TaskManager {
 
 	fmt.Println("Init task manager ...")
 
+	if _, err := os.Stat("db"); os.IsNotExist(err) {
+		os.Mkdir("db", 0755)
+	}
+
 	var taskManager = &TaskManager{}
-	taskManager.Database = "task-manager-db.json"
+	taskManager.Database = "db/task-manager-db.json"
 
 	_, err := os.Stat(taskManager.Database)
 	if err != nil {
